@@ -1,0 +1,331 @@
+w = x = y = z = 0
+
+# Number 1  # Explanation                   Result
+inp w       # w is in 1-9                   w = current input digit
+
+mul x 0     # x = 0
+add x z     # x = z
+mod x 26    # x = x % 26
+div z 1     # z = z              
+add x 13    # x = (z % 26) + 13
+eql x w     # x = 1 if x == w else 0        x = 0
+eql x 0     # x = 1 if x == 0 else 0        x = 1
+
+mul y 0     # y = 0             
+add y 25    # y = 25                                     
+mul y x     # y = 25 * x            
+add y 1     # y = 25 * x + 1                y = 26
+mul z y     # z = z * y                     z = z * 26
+
+mul y 0     # y = 0
+add y w     # y = w                         y = w
+add y 6     # y = w + 6                     y = w + 6
+mul y x     # y = (w + 6) * x               y = w + 6
+add z y     # z = z + y                     y = z + w + 6
+
+w = 1-9
+x = 1
+y = w + 6
+z = 26 * z + w + 6
+
+In practice we push w + 6 to the stack
+
+# Number 2
+inp w       w = input digit
+
+mul x 0
+add x z     
+mod x 26    
+div z 1
+add x 11
+eql x w
+eql x 0     x = 1
+
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y     z = z * 26
+
+mul y 0
+add y w
+add y 11
+mul y x
+add z y     z = z * 26 + w + 11
+
+z = 26 * z + w + 11
+
+# Number 3
+inp w
+
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 12
+eql x w
+eql x 0
+
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+
+mul y 0
+add y w
+add y 5
+mul y x
+add z y
+
+z = 26 * z + w + 5
+
+# Number 4
+inp w
+
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 10
+eql x w
+eql x 0
+
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+
+mul y 0
+add y w
+add y 6
+mul y x
+add z y
+
+z = z * 26 + w + 6
+
+# Number 5
+inp w
+
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 14
+eql x w
+eql x 0
+
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+
+mul y 0
+add y w
+add y 8
+mul y x
+add z y
+
+z = z * 26 + w + 8
+
+# Number 6
+inp w
+
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -1
+eql x w
+eql x 0
+
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+
+mul y 0
+add y w
+add y 14
+mul y x
+add z y
+
+z = z * 26 + w + 14
+
+
+# Number 7
+inp w
+
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 14
+eql x w
+eql x 0
+
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+
+mul y 0
+add y w
+add y 9
+mul y x
+add z y
+
+z = z * 26 + x + 9
+
+# Number 8 -- a different behaviour!
+inp w           w = input number
+
+mul x 0
+add x z
+mod x 26        x = z mod 26
+div z 26        z = z // 26
+
+add x -16       x -= 16
+eql x w
+eql x 0         if x != w then x = 1 else x = 0
+
+mul y 0
+add y 25
+mul y x         y = 25 * x  (either 25 or 0)
+add y 1         y += 1      (either 26 or 1)
+mul z y         z = z * y   (either z * 26 or z)
+
+mul y 0
+add y w
+add y 4
+mul y x         y = (w + 4) * x (either w + 4 or 0)
+add z y         z += y
+
+Here we pop from the stack
+z = z + w + 4
+
+# Number 9
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -8
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 7
+mul y x
+add z y
+
+# Number 10
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 12
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 13
+mul y x
+add z y
+
+# Number 11
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -16
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 11
+mul y x
+add z y
+
+# Number 12
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -13
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 11
+mul y x
+add z y
+
+# Number 13
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -6
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 6
+mul y x
+add z y
+
+# Number 14
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -6
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 1
+mul y x
+add z y
+
+if z == 0 the model number is valid
