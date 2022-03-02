@@ -1,0 +1,53 @@
+INIT PART 1:
+        a = 1 ; never changes
+        set b 79        ; b = 79
+        set c b         ; c = b = 79
+        jnz a 2         ; jump to A (pc + 2) if a != 0 (part 2)
+        jnz 1 5         ; jump to B (pc + 5) (part 1)
+
+; Part 2 starts here
+INIT PART 2:
+        mul b 100       ; b = b * 100 = 7900
+        sub b -100000   ; b = b + 100_000 = 107_900
+        set c b         ; c = b 
+        sub c -17000    ; c = c + 17_000 = 124_900
+
+PROGRAM START:
+    Loop to increase d until d == b
+    B:      set f 1         ; f = 1
+            set d 2         ; d = 2
+
+    C:      set e 2         ; e = 2
+
+        Loop to increase e until e == b
+        D:      set g d         ; g = d
+                mul g e         ; g = g * e == d * e
+                sub g b         ; g = g - b
+                jnz g 2         ; jump to E if d * e - b != 0
+                set f 0         ; f = 0 (if d * e == b)
+
+        E:      sub e -1        ; e = e + 1
+                set g e         ; g = e
+                sub g b         ; g = g - b
+                jnz g -8        ; jump to D if e != b
+        Loop to increase e until e == b
+
+            sub d -1        ; d = d + 1
+            set g d         ; g = d
+            sub g b         ; g = g - b (d - b)
+            jnz g -13       ; jump to C (pc-13) if d != b
+    Loop to increase d until d == b
+
+        jnz f 2         ; jump to F if f != 0
+        sub h -1        ; h = h + 1 (only if d * e == b for any d, e >= 2)
+                        ; in other words b is not a prime
+
+F:      set g b         ; g = b
+        sub g c         ; g = g - c
+        jnz g 2         ; jump to G if c != b
+        jnz 1 3         ; jump to END if c == b
+
+G:      sub b -17       ; b = b + 17 == run outer loop 1000 times, i.e. try to increase h
+        jnz 1 -23       ; jump to B
+
+END
