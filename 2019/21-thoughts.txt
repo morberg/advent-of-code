@@ -1,0 +1,155 @@
+Jump position
+..@..............
+#####.#..########
+   ABCD
+  012345
+
+Falls into hole at position 5
+
+NOT C J
+AND D J
+
+Jump
+....@............
+#####.#..########
+   ABCD
+  0123456
+
+Falls into hole at position 6
+NOT A J
+
+
+Never jumps
+....@............
+#####.###########
+Detect three-tile-wide hole with ground after
+
+NOT A J
+NOT B T
+AND T J
+NOT C T
+AND T J
+AND D J
+
+We need to handle all three combinations of ABC where D is true
+Truth table time?
+
+A B C D   Should Jump
+0 0 0 0   Doesn't matter, you're SOL
+0 0 0 1   1
+0 0 1 0   0
+0 0 1 1   1
+0 1 0 0   0
+0 1 0 1   1
+0 1 1 0   0
+0 1 1 1   1
+1 0 0 0   0
+1 0 0 1   1
+1 0 1 0   0
+1 0 1 1   1
+1 1 0 0   0
+1 1 0 1   1
+1 1 1 0   0
+1 1 1 1   0
+
+Always jump if D == 1 unless A B C are all true
+
+Springscript program:
+
+OR A T ; T = A
+AND B T ; T = 1 if A and B = 1
+AND C T ; T = 1 if A, B, and C = 1
+NOT T J ; J = 0 if ABC all true, 1 otherwise
+AND D J ; Jump if D = 1
+
+Part 2
+
+Jump, land on 4, don't jump (since 8 is 0) and walk into 5.
+..@..............
+#####.#.##.##.###
+---ABCDEFGHI
+       ABCDEFGHI
+--0123456789
+
+would it be better to wait until D and H are both true? Let's try it.
+
+OR A T
+AND B T
+AND C T
+NOT T T
+OR D J
+AND H J
+AND T J
+RUN
+
+Nope. Doesn't jump here, but should.
+....@............
+#####...##.#.####
+     ABCDEFGHI
+
+Always jump if D and H are true
+OR D J
+AND H J
+
+@................
+#####...##.#.####
+ABCDEFGHI
+
+Fails to jump here
+....@............
+#####...##.#.####
+     ABCDEFGHI
+
+D must always be True, otherwise we'll jump into space.
+Don't care about ABC, but what do we need from the others?
+
+Don't jump here
+  @
+#####.#.##.##.###
+   ABCDEFGHI
+
+Do jump here
+    @
+#####.#.##.##.###
+     ABCDEFGHI
+
+Jump here
+....@............
+#####...##.#.####
+     ABCDEFGHI
+
+
+E F G H I   Jump
+0 0 - 0 0   0
+0 0 - 0 1   0
+0 0 - 1 0   1: H
+0 0 - 1 1   1: H
+0 1 - 0 0   0
+0 1 - 0 1   0
+0 1 - 1 0   1: H
+0 1 - 1 1   1: H
+1 0 - 0 0   0
+1 0 - 0 1   1: E and I
+1 0 - 1 0   1: H
+1 0 - 1 1   1: H
+1 1 - 0 0   1: E and F (and cross fingers)
+1 1 - 0 1   1: E and I
+1 1 - 1 0   1: H
+1 1 - 1 1   1: H
+
+H OR
+E and F OR
+E and I
+
+
+; Code for part 2
+OR A T
+AND B T
+AND C T
+NOT T T
+AND D T
+OR I J
+OR F J
+AND E J
+OR H J
+AND T J
