@@ -1,3 +1,4 @@
+PART 1
 Jump position
 ..@..............
 #####.#..########
@@ -62,7 +63,9 @@ AND C T ; T = 1 if A, B, and C = 1
 NOT T J ; J = 0 if ABC all true, 1 otherwise
 AND D J ; Jump if D = 1
 
-Part 2
+Done.
+
+PART 2
 
 Jump, land on 4, don't jump (since 8 is 0) and walk into 5.
 ..@..............
@@ -137,6 +140,8 @@ E F G H I   Jump
 1 1 - 1 0   1: H
 1 1 - 1 1   1: H
 
+
+Conditions:
 H OR
 E and F OR
 E and I
@@ -147,9 +152,21 @@ OR A T
 AND B T
 AND C T
 NOT T T
-AND D T
+AND D T ; Part 1
 OR I J
 OR F J
-AND E J
+AND E J ; E and (I or F)
 OR H J
 AND T J
+
+This could be made simpler by instead jumping if E or H are ground:
+
+OR A T
+AND B T
+AND C T
+NOT T T
+AND D T ; Part 1
+OR E J
+OR H J
+AND T J
+
