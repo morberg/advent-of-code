@@ -1,0 +1,11 @@
+1. Easter egg
+2. Asterisk
+3. Jam
+4. Klein Bottle
+5. Cake
+6. Tambourine
+7. Polygon
+
+1 + any one of the others is too light
+1 + 2 + any of the remaining is too light
+1 + 2 + 3 + 5 = success!

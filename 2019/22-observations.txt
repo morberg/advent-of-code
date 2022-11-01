@@ -1,0 +1,117 @@
+Observations / possible modifications
+
+cut x, deal y           = deal y, cut (x*y) % deck_size
+cut x, cut y            = cut (x+y) % deck_size
+deal x, deal y          = deal (x*y) % deck_size
+cut x, deal_into_new    = deal_into_new, cut (deck_size - x)
+deal x, deal_into_new   = deal_into_new, deal x, cut(deck_size - x + 1)
+deal_into_new, deal x   = deal x, deal_into_new, cut(x - 1)
+deal_into_new * 2       = nop
+
+There are 16 "deal into new stack", should be possible to cancel them all
+
+
+Deck size: 11
+rewrite cut deal as deal cut?
+cut 1, deal 4 == deal 4, cut 4
+cut 1, deal 4 == deal 4, cut 8
+
+
+cut 1, deal 5 == deal 5, cut 5
+cut 2, deal 5 == deal 5, cut 10
+cut 3, deal 5 == deal 5, cut 4
+cut 4, deal 5 == deal 5, cut 9
+cut 5, deal 5 == deal 5, cut 3
+cut 6, deal 5 == deal 5, cut 8
+
+
+Can cut, deal, cut be simplified?
+cut 1, deal 5, cut 1 == cut 10, deal 5
+cut 2, deal 5, cut 1 ==        deal 5
+cut 3, deal 5, cut 1 == cut 1, deal 5
+
+cut 1, deal 5, cut 2 == cut 8, deal 5
+cut 2, deal 5, cut 2 == cut 9, deal 5
+
+cut 1, deal 5, cut 3 == cut 6, deal 5 == deal 5, cut 8
+cut 2, deal 5, cut 3 == cut 7, deal 5
+
+cut 1, deal 5, cut 4 == cut 4, deal 5 == deal 5, cut 9
+cut 2, deal 5, cut 4 == cut 5, deal 5 == deal 5, cut 3
+cut 3, deal 5, cut 4 == cut 6, deal 5 == deal 5, cut 8
+cut 4, deal 5, cut 4 == cut 7, deal 5
+cut 5, deal 5, cut 4 == cut 8, deal 5
+
+cut 1, deal 5, cut 5 == cut 2, deal 5 == deal 5, cut 4
+cut 2, deal 5, cut 5 == cut 3, deal 5
+
+
+
+deal 2, cut 2 == cut 4, deal 2, cut 5
+deal 2, cut 3 == cut 5, deal 2, cut 4
+deal 2, cut 5 == cut 6, deal 2, cut 4
+
+
+
+deal 2, cut 1 == cut 6, deal 2     f(n) = n*6 % 11
+deal 2, cut 2 == cut 1, deal 2
+deal 2, cut 3 == cut 7, deal 2
+deal 2, cut 4 == cut 2, deal 2
+deal 2, cut 5 == cut 8, deal 2
+deal 2, cut 6 == cut 3, deal 2
+deal 2, cut 7 == cut 9, deal 2
+deal 2, cut 8 == cut 4, deal 2
+deal 2, cut 9 == cut 10, deal 2
+deal 2, cut 10 == cut 5, deal 2
+
+deal 3, cut 1 == cut 4, deal 3      f(n) = (n*4) % 11
+deal 3, cut 2 == cut 8, deal 3
+deal 3, cut 3 == cut 1, deal 3
+deal 3, cut 4 == cut 5, deal 3
+deal 3, cut 5 == cut 9, deal 3
+
+
+deal 4, cut 1 == cut 3, deal 4      f(n) = n*3 % 11 
+deal 4, cut 2 == cut 6, deal 4
+            3 ==     9
+            4 ==     1
+            5 ==     4
+            6        7
+            7        10
+            8        2
+            9        5
+            10       8
+
+deal 5, cut 1 == cut 9, deal 5    f(n) = n*9 % 11
+                     7
+                     5
+                     3
+                     1
+                     10
+                     8
+                     6
+                     4
+                     2
+
+
+deal 6: f(n) = n*2  % 11
+     7: f(n) = n*8  % 11
+     8: f(n) = n*7  % 11
+     9: f(n) = n*5  % 11
+    10: f(n) = n*10 % 11
+
+
+deal 8, cut 3 == cut 10, deal 8
+
+
+Deck size: 13
+deal 2, cut 1 == cut 7, deal 2
+deal 2, cut 2 == cut 1, deal 2
+            3 ==     8
+            4 ==     2
+            5 ==     9
+            6 ==     3
+            7 ==    10
+            8 ==     4
+
+
